@@ -39,7 +39,7 @@ export class Trigger {
       this.definitions = definitions;
       return true;
     }
-    if (data.movement == "disconnects" && this.definitions[data.client]) {
+    if (data.update == "disconnects" && this.definitions[data.client]) {
       this.definitions = definitions;
       return true;
     }
