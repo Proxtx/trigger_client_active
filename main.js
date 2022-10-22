@@ -36,13 +36,13 @@ export class Trigger {
 
     if (this.definitions[data.client] == definitions[data.client]) return false;
     if (data.update == "connects" && definitions[data.client]) {
-      this.definitions = definitions;
+      this.definitions[data.client] = definitions[data.client];
       return true;
     }
     if (data.update == "disconnects" && this.definitions[data.client]) {
-      this.definitions = definitions;
+      this.definitions[data.client] = definitions[data.client];
       return true;
     }
-    this.definitions = definitions;
+    this.definitions[data.client] = definitions[data.client];
   };
 }
