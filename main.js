@@ -43,5 +43,6 @@ export class Trigger {
       this.definitions = definitions;
       return true;
     }
+    this.definitions = definitions;
   };
 }
