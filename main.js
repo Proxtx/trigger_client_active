@@ -26,7 +26,7 @@ export class Trigger {
     return { html: this.html, handler: this.handler, data: {} };
   };
 
-  triggers = async (data) => {
+  triggers = async (data, actionName) => {
     let definitions = (
       await this.api.getDefinitions(config.unifyGuiAPI.pwd, this.config.appName)
     ).methods;
@@ -34,15 +34,17 @@ export class Trigger {
       definitions[client] = true;
     }
 
-    if (this.definitions[data.client] == definitions[data.client]) return false;
+    let identifier = data.client + actionName;
+
+    if (this.definitions[identifier] == definitions[data.client]) return false;
     if (data.update == "connects" && definitions[data.client]) {
-      this.definitions[data.client] = definitions[data.client];
+      this.definitions[identifier] = definitions[data.client];
       return true;
     }
-    if (data.update == "disconnects" && this.definitions[data.client]) {
-      this.definitions[data.client] = definitions[data.client];
+    if (data.update == "disconnects" && this.definitions[identifier]) {
+      this.definitions[identifier] = definitions[data.client];
       return true;
     }
-    this.definitions[data.client] = definitions[data.client];
+    this.definitions[identifier] = definitions[data.client];
   };
 }
