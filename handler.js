@@ -1,12 +1,12 @@
-let clientInput = window.triggerGui.getElementsByClassName("clientInput")[0];
-let updateSelect = window.triggerGui.getElementsByClassName("updateSelect")[0];
+let clientInput = triggerGui.getElementsByClassName("clientInput")[0];
+let updateSelect = triggerGui.getElementsByClassName("updateSelect")[0];
 
-window.getTriggerConfiguration = () => {
+getTriggerConfiguration(() => {
   return {
     text: clientInput.component.value + " " + updateSelect.value,
     data: {
       client: clientInput.component.value,
-      update: updateSelect.value,
+      status: updateSelect.value,
     },
   };
-};
+});

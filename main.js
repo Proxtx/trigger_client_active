@@ -4,8 +4,6 @@ import config from "@proxtx/config";
 import fs from "fs/promises";
 
 export class Trigger {
-  definitions = {};
-
   constructor(triggerConfig, folder) {
     this.folder = folder;
     this.config = triggerConfig;
@@ -26,7 +24,7 @@ export class Trigger {
     return { html: this.html, handler: this.handler, data: {} };
   };
 
-  triggers = async (data, actionName) => {
+  triggers = async (data) => {
     let definitions = (
       await this.api.getDefinitions(config.unifyGuiAPI.pwd, this.config.appName)
     ).methods;
@@ -34,17 +32,12 @@ export class Trigger {
       definitions[client] = true;
     }
 
-    let identifier = data.client + actionName;
-
-    if (this.definitions[identifier] == definitions[data.client]) return false;
-    if (data.update == "connects" && definitions[data.client]) {
-      this.definitions[identifier] = definitions[data.client];
-      return true;
-    }
-    if (data.update == "disconnects" && this.definitions[identifier]) {
-      this.definitions[identifier] = definitions[data.client];
-      return true;
-    }
-    this.definitions[identifier] = definitions[data.client];
+    return definitions[data.client]
+      ? data.status == "connected"
+        ? true
+        : false
+      : data.status == "disconnected"
+      ? true
+      : false;
   };
 }
