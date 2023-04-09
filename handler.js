@@ -10,3 +10,11 @@ getTriggerConfiguration(() => {
     },
   };
 });
+
+(async () => {
+  if (triggerPresetData) {
+    await uiBuilder.ready(clientInput);
+    clientInput.component.value = triggerPresetData.client;
+    updateSelect.value = triggerPresetData.status;
+  }
+})();
