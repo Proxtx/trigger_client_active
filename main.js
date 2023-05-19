@@ -10,7 +10,7 @@ export class Trigger {
 
     (async () => {
       this.api = await genCombine(
-        config.unifyGuiAPI.url + "/",
+        config.apps + "/",
         "public/api.js",
         genModule
       );
@@ -26,7 +26,7 @@ export class Trigger {
 
   triggers = async (data) => {
     let definitions = (
-      await this.api.getDefinitions(config.unifyGuiAPI.pwd, this.config.appName)
+      await this.api.getDefinitions(config.pwd, this.config.appName)
     ).methods;
     for (let client in definitions) {
       definitions[client] = true;
